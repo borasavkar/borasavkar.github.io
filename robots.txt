@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://borasavkar.github.io/sitemap.xml
