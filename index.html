@@ -1,269 +1,767 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Bora Şavkar | FiboTrader & ByBora Tech</title>
-    <meta name="description" content="Bora Şavkar (ByBora) resmi portfolyo sitesi. FiboTrader, SmartXtream, Pivot Master ve Şavkar Kuyumculuk projeleri.">
-    <meta name="keywords" content="Bora Şavkar, FiboTrader, SmartXtream, Pivot Master, Android, Yazılım, Borsa, Altın, İzmir, IPTV, Pivot Points">
+
+    <title>Bora Şavkar | ByBora — Şavkar Kuyumculuk & SmartXtream</title>
+    <meta name="description" content="Bora Şavkar (ByBora) resmi portfolyo sitesi. Şavkar Kuyumculuk, SmartXtream IPTV Player, FiboTrader, Pivot Master ve açık kaynak masaüstü araçları.">
+    <meta name="keywords" content="Bora Şavkar, ByBora, Şavkar Kuyumculuk, SmartXtream, IPTV, FiboTrader, Pivot Master, WinCare, SubtitleForge, VidForge, NitPick, İzmir">
     <meta name="author" content="Bora Şavkar">
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0b0b10">
+    <link rel="canonical" href="https://borasavkar.github.io/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://borasavkar.github.io/">
+    <meta property="og:title" content="Bora Şavkar | ByBora">
+    <meta property="og:description" content="Şavkar Kuyumculuk, SmartXtream ve açık kaynak yazılım projeleri.">
 
     <meta name="google-site-verification" content="c2uzN_M_QKKv3BDP9dNBusI6ljq-WFzxIi2SdKywS1Y" />
 
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0b10'/><text x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='700' font-size='34' fill='%23f5c542'>B</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- TEMEL AYARLAR (RESET) --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #121212; /* Derin Siyah */
-            color: #E0E0E0;
-            line-height: 1.6;
-        }
-        a { text-decoration: none; transition: 0.3s; }
-        ul { list-style: none; }
-
-        /* --- RENK PALETİ --- */
         :root {
-            --primary-gold: #FFD700;
-            --dark-bg: #121212;
-            --card-bg: #1E1E1E;
-            --text-light: #F5F5F5;
-            --text-gray: #AAAAAA;
+            --bg: #0b0b10;
+            --bg-2: #12121a;
+            --card: rgba(255, 255, 255, 0.04);
+            --card-hover: rgba(255, 255, 255, 0.07);
+            --border: rgba(255, 255, 255, 0.09);
+            --text: #f3f3f6;
+            --muted: #a0a0b2;
+            --dim: #6e6e82;
+            --gold: #f5c542;
+            --gold-2: #ffdf7e;
+            --green: #00e676;
+            --blue: #2196f3;
+            --violet: #8b7cff;
+            --radius: 20px;
+            --max: 1160px;
         }
 
-        /* --- NAVIGASYON (MENÜ) --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { color: inherit; text-decoration: none; }
+        ul { list-style: none; }
+        h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; letter-spacing: -0.02em; line-height: 1.15; }
+
+        /* Language switching: both languages live in the HTML, CSS shows one */
+        html[data-lang="tr"] body [lang="en"] { display: none !important; }
+        html[data-lang="en"] body [lang="tr"] { display: none !important; }
+
+        /* --- Background glow --- */
+        .bg-glow { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+        .bg-glow span {
+            position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35;
+            animation: float 22s ease-in-out infinite alternate;
+        }
+        .bg-glow .g1 { width: 520px; height: 520px; background: #b8860b; top: -160px; left: -140px; }
+        .bg-glow .g2 { width: 460px; height: 460px; background: #00a86b; top: 30%; right: -180px; animation-delay: -6s; opacity: 0.22; }
+        .bg-glow .g3 { width: 420px; height: 420px; background: #3b2fd1; bottom: -180px; left: 25%; animation-delay: -12s; opacity: 0.22; }
+        @keyframes float { to { transform: translate(60px, 40px) scale(1.12); } }
+        .bg-grid {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 56px 56px;
+            mask-image: radial-gradient(ellipse at top, #000 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at top, #000 20%, transparent 70%);
+        }
+
+        .container { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+        /* --- Header --- */
         header {
-            background-color: rgba(18, 18, 18, 0.95);
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            transition: background 0.3s, border-color 0.3s;
+            border-bottom: 1px solid transparent;
         }
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
+        header.scrolled { background: rgba(11, 11, 16, 0.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--border); }
+        .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.45rem; font-weight: 700; }
+        .logo span { color: var(--gold); }
+        .nav-links { display: flex; align-items: center; gap: 28px; }
+        .nav-links a { color: var(--muted); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-right { display: flex; align-items: center; gap: 10px; }
+        .lang-toggle {
+            display: flex; border: 1px solid var(--border); border-radius: 999px; padding: 3px; background: var(--card);
         }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--text-light);
+        .lang-toggle button {
+            border: 0; background: transparent; color: var(--muted); font: 600 0.78rem 'Inter', sans-serif;
+            padding: 6px 11px; border-radius: 999px; cursor: pointer; transition: 0.2s;
         }
-        .logo span { color: var(--primary-gold); }
-        
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: var(--text-light); font-weight: 500; }
-        .nav-links a:hover { color: var(--primary-gold); }
+        html[data-lang="tr"] .lang-toggle [data-set="tr"],
+        html[data-lang="en"] .lang-toggle [data-set="en"] { background: var(--gold); color: #111; }
+        .hamburger {
+            display: none; width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--border);
+            background: var(--card); color: var(--text); font-size: 1.1rem; cursor: pointer;
+        }
 
-        /* Mobil Menü İkonu (Gizli) */
-        .hamburger { display: none; cursor: pointer; color: var(--primary-gold); font-size: 24px; }
-
-        /* --- HERO (GİRİŞ) BÖLÜMÜ --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background: radial-gradient(circle at center, #252525 0%, #121212 70%);
+        /* --- Hero --- */
+        .hero { padding: 150px 20px 70px; text-align: center; }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px;
+            border: 1px solid var(--border); background: var(--card); color: var(--muted); font-size: 0.85rem; margin-bottom: 26px;
         }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; color: var(--text-light); }
-        .hero h1 span { color: var(--primary-gold); }
-        .hero p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 30px; max-width: 600px; }
-        
+        .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); }
+        .hero h1 { font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 700; margin-bottom: 18px; }
+        .grad {
+            background: linear-gradient(100deg, var(--gold-2), var(--gold) 40%, #ff9f43);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p.lead { font-size: clamp(1.02rem, 2.4vw, 1.2rem); color: var(--muted); max-width: 640px; margin: 0 auto 34px; }
+        .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
         .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 5px;
-            font-weight: bold;
-            margin: 5px;
+            display: inline-flex; align-items: center; gap: 9px; padding: 13px 22px; border-radius: 14px;
+            font-weight: 600; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+            border: 1px solid transparent; cursor: pointer;
         }
-        .btn-primary { background-color: var(--primary-gold); color: #000; }
-        .btn-primary:hover { background-color: #E6C200; transform: translateY(-2px); }
-        .btn-outline { border: 2px solid var(--primary-gold); color: var(--primary-gold); }
-        .btn-outline:hover { background-color: var(--primary-gold); color: #000; }
-
-        /* --- PROJELER BÖLÜMÜ --- */
-        .section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2rem; }
-        .section-title span { border-bottom: 3px solid var(--primary-gold); padding-bottom: 10px; }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        .btn:hover { transform: translateY(-2px); }
+        .btn-gold { background: linear-gradient(135deg, var(--gold-2), var(--gold)); color: #15120a; box-shadow: 0 10px 30px -10px rgba(245, 197, 66, 0.6); }
+        .btn-ghost { border-color: var(--border); background: var(--card); color: var(--text); }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.25); }
+        .stats { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 48px; }
+        .stat {
+            min-width: 140px; padding: 16px 20px; border-radius: 16px; border: 1px solid var(--border); background: var(--card);
         }
+        .stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem; }
+        .stat small { color: var(--muted); font-size: 0.82rem; }
+
+        /* --- Sections --- */
+        section { scroll-margin-top: 80px; }
+        .section { padding: 70px 20px; }
+        .section-head { margin-bottom: 34px; }
+        .section-head .kicker { color: var(--gold); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; }
+        .section-head h2 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); margin-top: 8px; }
+        .section-head p { color: var(--muted); margin-top: 10px; max-width: 620px; }
+
+        /* --- Featured --- */
+        .featured { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+        .feature {
+            position: relative; border-radius: 26px; padding: 34px; overflow: hidden; isolation: isolate;
+            background: var(--bg-2);
+            display: flex; flex-direction: column; min-height: 460px;
+            transition: transform 0.35s, box-shadow 0.35s;
+        }
+        .feature:hover { transform: translateY(-6px); }
+        .feature::before { content: ""; position: absolute; inset: 0; z-index: -1; }
+        .feature::after {
+            content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; z-index: -1; pointer-events: none;
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+        }
+        .f-gold::before { background: radial-gradient(circle at 85% 0%, rgba(245, 197, 66, 0.30), transparent 55%), radial-gradient(circle at 0% 100%, rgba(255, 159, 67, 0.12), transparent 50%); }
+        .f-gold::after { background: linear-gradient(140deg, rgba(255, 223, 126, 0.75), rgba(245, 197, 66, 0.06) 45%, rgba(255, 159, 67, 0.45)); }
+        .f-gold:hover { box-shadow: 0 30px 70px -30px rgba(245, 197, 66, 0.45); }
+        .f-stream::before { background: radial-gradient(circle at 85% 0%, rgba(0, 230, 118, 0.25), transparent 55%), radial-gradient(circle at 0% 100%, rgba(33, 150, 243, 0.22), transparent 50%); }
+        .f-stream::after { background: linear-gradient(140deg, rgba(0, 230, 118, 0.75), rgba(0, 230, 118, 0.05) 45%, rgba(33, 150, 243, 0.6)); }
+        .f-stream:hover { box-shadow: 0 30px 70px -30px rgba(0, 230, 118, 0.4); }
+
+        .f-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; }
+        .f-icon { width: 62px; height: 62px; border-radius: 18px; display: grid; place-items: center; font-size: 1.6rem; }
+        .f-gold .f-icon { background: linear-gradient(135deg, var(--gold-2), #d99a1e); color: #2a1d00; box-shadow: 0 12px 30px -10px rgba(245, 197, 66, 0.7); }
+        .f-stream .f-icon { background: linear-gradient(135deg, var(--green), var(--blue)); color: #04140c; box-shadow: 0 12px 30px -10px rgba(0, 230, 118, 0.6); }
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 600;
+            padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border); background: rgba(0,0,0,0.25); color: var(--muted);
+        }
+        .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+        .feature h3 { font-size: clamp(1.7rem, 3.6vw, 2.2rem); margin-bottom: 6px; }
+        .f-sub { font-weight: 600; margin-bottom: 14px; }
+        .f-gold .f-sub { color: var(--gold); }
+        .f-stream .f-sub { color: #4ff0a6; }
+        .feature p.desc { color: var(--muted); margin-bottom: 20px; }
+        .checks { display: grid; gap: 9px; margin-bottom: 26px; }
+        .checks li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.95rem; }
+        .checks i { margin-top: 5px; font-size: 0.8rem; }
+        .f-gold .checks i { color: var(--gold); }
+        .f-stream .checks i { color: var(--green); }
+        .f-actions { margin-top: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-stream { background: linear-gradient(135deg, var(--green), #00c2a8); color: #03140b; box-shadow: 0 10px 30px -10px rgba(0, 230, 118, 0.6); }
+
+        /* --- Projects grid --- */
+        .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+        .chip {
+            border: 1px solid var(--border); background: var(--card); color: var(--muted); cursor: pointer;
+            font: 500 0.88rem 'Inter', sans-serif; padding: 8px 16px; border-radius: 999px; transition: 0.2s;
+        }
+        .chip:hover { color: var(--text); }
+        .chip.active { background: var(--text); color: #111; border-color: var(--text); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
         .card {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            border: 1px solid #333;
-            text-align: center;
-            transition: transform 0.3s ease, border-color 0.3s;
+            position: relative; display: flex; flex-direction: column; gap: 12px;
+            padding: 22px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card);
+            transition: background 0.25s, border-color 0.25s, transform 0.25s, opacity 0.7s;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-gold);
+        .card:hover { background: var(--card-hover); border-color: rgba(255,255,255,0.18); transform: translateY(-3px); }
+        .card.hidden { display: none; }
+        .card-top { display: flex; align-items: center; gap: 14px; }
+        .c-icon {
+            flex: none; width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; font-size: 1.15rem;
+            background: rgba(255,255,255,0.06); border: 1px solid var(--border);
         }
-        .card i { color: var(--primary-gold); margin-bottom: 20px; }
-        .card h3 { margin-bottom: 15px; color: var(--text-light); }
-        .card p { color: var(--text-gray); margin-bottom: 20px; font-size: 0.95rem; }
+        .card h3 { font-size: 1.12rem; }
+        .card .meta { font-size: 0.78rem; color: var(--dim); }
+        .card p { color: var(--muted); font-size: 0.92rem; flex: 1; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tag { font-size: 0.72rem; color: var(--muted); padding: 3px 9px; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
+        .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 4px; }
+        .status { font-size: 0.74rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+        .s-live { color: var(--green); background: rgba(0, 230, 118, 0.1); }
+        .s-oss { color: #7cc4ff; background: rgba(33, 150, 243, 0.12); }
+        .s-dev { color: #ffb86b; background: rgba(255, 159, 67, 0.12); }
+        .card-link { color: var(--muted); font-size: 0.86rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
+        a.card-link:hover { color: var(--text); }
+        .card.new { border-color: rgba(139, 124, 255, 0.45); background: linear-gradient(160deg, rgba(139, 124, 255, 0.13), var(--card) 60%); }
 
-        /* --- HAKKIMDA & İLETİŞİM --- */
-        .about-text { text-align: center; max-width: 800px; margin: 0 auto; color: var(--text-gray); }
-        
-        .contact-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
-        .contact-icons a { font-size: 2rem; color: var(--text-light); }
-        .contact-icons a:hover { color: var(--primary-gold); }
+        .i-gold { color: var(--gold); } .i-green { color: var(--green); } .i-blue { color: #6ab7ff; }
+        .i-red { color: #ff6b6b; } .i-pink { color: #ff79c6; } .i-cyan { color: #5fe3e3; } .i-orange { color: #ffa94d; } .i-violet { color: var(--violet); }
 
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid #333;
-            margin-top: 50px;
-            color: var(--text-gray);
-            font-size: 0.9rem;
+        /* --- Archive --- */
+        details.archive { margin-top: 26px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+        details.archive summary {
+            cursor: pointer; padding: 18px 22px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; gap: 12px; list-style: none;
         }
-        footer a { color: var(--text-gray); text-decoration: underline; }
+        details.archive summary::-webkit-details-marker { display: none; }
+        details.archive summary i { transition: transform 0.25s; color: var(--muted); }
+        details.archive[open] summary i { transform: rotate(180deg); }
+        .archive-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 4px 20px; padding: 0 22px 20px; }
+        .archive-list a { display: flex; flex-direction: column; padding: 10px 0; border-top: 1px solid var(--border); }
+        .archive-list a b { font-size: 0.92rem; font-weight: 600; transition: color 0.2s; }
+        .archive-list a span { font-size: 0.82rem; color: var(--dim); }
+        .archive-list a:hover b { color: var(--gold); }
 
-        /* --- MOBİL UYUMLULUK (RESPONSIVE) --- */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+        /* --- About / Contact --- */
+        .about { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; align-items: stretch; }
+        .panel { padding: 30px; border-radius: 24px; border: 1px solid var(--border); background: var(--card); }
+        .panel p { color: var(--muted); margin-bottom: 14px; }
+        .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+        .contact-list { display: grid; gap: 12px; }
+        .contact-list a {
+            display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--border);
+            background: rgba(255,255,255,0.03); transition: 0.2s; overflow-wrap: anywhere;
+        }
+        .contact-list a:hover { border-color: var(--gold); background: rgba(245, 197, 66, 0.06); }
+        .contact-list i { width: 22px; text-align: center; color: var(--gold); font-size: 1.1rem; flex: none; }
+        .contact-list small { display: block; color: var(--dim); font-size: 0.76rem; }
+
+        footer { padding: 40px 0 50px; margin-top: 30px; border-top: 1px solid var(--border); color: var(--dim); font-size: 0.88rem; }
+        .foot { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+        .foot a { color: var(--muted); }
+        .foot a:hover { color: var(--text); }
+        .foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+
+        /* --- Reveal animation --- */
+        .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .js .reveal.in { opacity: 1; transform: none; }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .featured, .about { grid-template-columns: 1fr; }
+            .feature { min-height: 0; }
+        }
+        @media (max-width: 760px) {
+            .hamburger { display: grid; place-items: center; }
             .nav-links {
-                display: none; /* Mobilde gizle */
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                right: 0;
-                width: 100%;
-                background-color: #1E1E1E;
-                text-align: center;
-                padding: 20px 0;
-                border-bottom: 1px solid var(--primary-gold);
+                position: absolute; top: 68px; left: 12px; right: 12px; flex-direction: column; align-items: stretch; gap: 0;
+                background: rgba(18, 18, 26, 0.97); border: 1px solid var(--border); border-radius: 18px; padding: 8px;
+                backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+                opacity: 0; transform: translateY(-8px); pointer-events: none; transition: 0.2s;
             }
-            .nav-links.active { display: flex; } /* JS ile açılacak */
-            .hamburger { display: block; }
+            .nav-links.open { opacity: 1; transform: none; pointer-events: auto; }
+            .nav-links a { padding: 13px 14px; border-radius: 12px; font-size: 1rem; }
+            .nav-links a:hover { background: var(--card); }
+            .container { padding-left: 16px; padding-right: 16px; }
+            .hero { padding: 116px 16px 44px; }
+            .section { padding: 50px 16px; }
+            .feature { padding: 26px 20px; border-radius: 22px; }
+            .grid { grid-template-columns: 1fr; }
+            .stats { gap: 10px; }
+            .stat { min-width: 0; flex: 1 1 0; padding: 14px 10px; }
+            .stat b { font-size: 1.4rem; }
+            .stat small { font-size: 0.74rem; }
+            .btns .btn { flex: 1 1 auto; justify-content: center; }
+            .f-actions .btn { flex: 1 1 auto; justify-content: center; }
+            .filters { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px 22px; padding: 0 16px 4px; scrollbar-width: none; }
+            .filters::-webkit-scrollbar { display: none; }
+            .chip { flex: none; }
+            .panel { padding: 24px 18px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+            .js .reveal { opacity: 1; transform: none; }
         }
     </style>
 </head>
 <body>
+    <div class="bg-glow" aria-hidden="true"><span class="g1"></span><span class="g2"></span><span class="g3"></span></div>
+    <div class="bg-grid" aria-hidden="true"></div>
 
-    <header>
-        <div class="nav-container">
-            <a href="/" class="logo">By<span>Bora</span></a>
-            <div class="hamburger" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
+    <header id="header">
+        <div class="container nav">
+            <a href="#top" class="logo">By<span>Bora</span></a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#featured"><span lang="tr">Öne Çıkanlar</span><span lang="en">Featured</span></a>
+                <a href="#projects"><span lang="tr">Projeler</span><span lang="en">Projects</span></a>
+                <a href="#about"><span lang="tr">Hakkımda</span><span lang="en">About</span></a>
+                <a href="#contact"><span lang="tr">İletişim</span><span lang="en">Contact</span></a>
+            </nav>
+            <div class="nav-right">
+                <div class="lang-toggle" role="group" aria-label="Language">
+                    <button type="button" data-set="tr">TR</button>
+                    <button type="button" data-set="en">EN</button>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
             </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#projects" onclick="toggleMenu()">Projeler</a></li>
-                <li><a href="#about" onclick="toggleMenu()">Hakkımda</a></li>
-                <li><a href="#contact" onclick="toggleMenu()">İletişim</a></li>
-            </ul>
         </div>
     </header>
 
-    <section class="hero">
-        <h1>Merhaba, Ben <span>Bora Şavkar</span></h1>
-        <p>Android Geliştirici | Girişimci | Trader</p>
-        <div>
-            <a href="#projects" class="btn btn-primary">Projelerimi Gör</a>
-            <a href="https://github.com/borasavkar" target="_blank" class="btn btn-outline">GitHub Profilim</a>
-        </div>
-    </section>
-
-    <section id="projects" class="section">
-        <h2 class="section-title"><span>Projelerim</span></h2>
-        <div class="projects-grid">
-            
-            <div class="card">
-                <i class="fas fa-chart-line fa-3x"></i>
-                <h3>FiboTrader</h3>
-                <p>Kripto ve Forex piyasaları için geliştirdiğim, altın oran (0.618) odaklı profesyonel Fibonacci hesaplama aracı. Google Play Store'da yayında.</p>
-                <a href="https://play.google.com/store/apps/details?id=com.bybora.fibotrader&pcampaignid=web_share" class="btn btn-primary">Play Store'da İncele</a>
+    <main id="top">
+        <!-- HERO -->
+        <section class="hero container">
+            <div class="eyebrow"><span class="dot"></span>
+                <span lang="tr">İzmir · Yazılım &amp; Ticaret</span><span lang="en">Izmir, Türkiye · Software &amp; Business</span>
             </div>
-
-            <div class="card">
-                <i class="fas fa-gem fa-3x"></i>
-                <h3>Şavkar Kuyumculuk</h3>
-                <p>İzmir merkezli kuyumculuk işletmem. Altın, ziynet ve vadeli güvenli satış çözümleri sunan ticari girişimim.</p>
-                <a href="https://www.savkarkuyumculuk.com.tr" target="_blank" class="btn btn-outline">Web Sitesine Git</a>
-            </div>
-
-            <div class="card">
-                <i class="fas fa-play-circle fa-3x"></i>
-                <h3>SmartXtream</h3>
-                <p>Yeni nesil akıllı oynatıcı. Video ve yayın akışlarınızı (M3U/IPTV) kolayca yönetmenizi sağlayan Android uygulaması.</p>
-                <a href="https://play.google.com/store/apps/details?id=com.bybora.smartxtream" target="_blank" class="btn btn-primary">Play Store'da İncele</a>
-            </div>
-
-            <div class="card">
-                <i class="fas fa-crosshairs fa-3x"></i>
-                <h3>Pivot Master</h3>
-                <p>Klasik, Camarilla ve Woodie yöntemleriyle pivot noktalarını, destek ve direnç seviyelerini anlık hesaplayan teknik analiz aracı.</p>
-                <a href="https://play.google.com/store/apps/details?id=com.bybora.pivotmasterbybora" target="_blank" class="btn btn-primary">Play Store'da İncele</a>
-            </div>
-
-            <div class="card">
-                <i class="fas fa-code fa-3x"></i>
-                <h3>Yeni Projeler</h3>
-                <p>Yazılım geliştirmelerim devam ediyor. Yakında daha fazla proje ve güncelleme burada olacak.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="section">
-        <h2 class="section-title"><span>Hakkımda</span></h2>
-        <div class="about-text">
-            <p>
-                İzmir'de yaşayan bir yazılım geliştirici ve işletme sahibiyim. Ticaret hayatımdaki (Şavkar Kuyumculuk) tecrübemi, yazılım dünyasındaki tutkumla birleştiriyorum.
-                Özellikle finansal teknolojiler, Android uygulama geliştirme ve algoritmik trade araçları üzerine yoğunlaşıyorum.
-                "FiboTrader" ile traderlara teknik analizde hız kazandırmayı hedefliyorum.
+            <h1>
+                <span lang="tr">Merhaba, ben <span class="grad">Bora Şavkar</span></span>
+                <span lang="en">Hi, I'm <span class="grad">Bora Şavkar</span></span>
+            </h1>
+            <p class="lead">
+                <span lang="tr">Kuyumculuk işletmemi yönetirken Android, Smart TV ve masaüstü için kullanışlı, sade ve çoğu açık kaynak yazılımlar geliştiriyorum.</span>
+                <span lang="en">I run a jewelry business and build simple, useful software for Android, Smart TVs and the desktop, most of it open source.</span>
             </p>
-        </div>
-    </section>
+            <div class="btns">
+                <a href="#featured" class="btn btn-gold"><i class="fas fa-arrow-down"></i><span lang="tr">Projeleri Keşfet</span><span lang="en">Explore Projects</span></a>
+                <a href="https://github.com/borasavkar" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-github"></i>GitHub</a>
+            </div>
+            <div class="stats">
+                <div class="stat"><b>20+</b><small><span lang="tr">Proje</span><span lang="en">Projects</span></small></div>
+                <div class="stat"><b>3</b><small><span lang="tr">Play Store uygulaması</span><span lang="en">Play Store apps</span></small></div>
+                <div class="stat"><b>10+</b><small><span lang="tr">Açık kaynak araç</span><span lang="en">Open-source tools</span></small></div>
+            </div>
+        </section>
 
-    <section id="contact" class="section">
-        <h2 class="section-title"><span>İletişim</span></h2>
-        <div class="about-text">
-            <p>Projeler, iş birlikleri veya sorularınız için bana ulaşabilirsiniz.</p>
-        </div>
-        <div class="contact-icons">
-            <a href="mailto:bybora.apps@gmail.com" title="E-Posta Gönder"><i class="fas fa-envelope"></i></a>
-            <a href="https://github.com/borasavkar" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.savkarkuyumculuk.com.tr" title="Website" target="_blank"><i class="fas fa-globe"></i></a>
-        </div>
-    </section>
+        <!-- FEATURED -->
+        <section id="featured" class="section container">
+            <div class="section-head reveal">
+                <div class="kicker"><span lang="tr">Öne Çıkanlar</span><span lang="en">Featured</span></div>
+                <h2><span lang="tr">Ana işlerim</span><span lang="en">Main ventures</span></h2>
+            </div>
+
+            <div class="featured">
+                <article class="feature f-gold reveal">
+                    <div class="f-top">
+                        <div class="f-icon"><i class="fas fa-gem"></i></div>
+                        <span class="badge"><span class="dot"></span><span lang="tr">Aktif işletme</span><span lang="en">Active business</span></span>
+                    </div>
+                    <h3>Şavkar Kuyumculuk</h3>
+                    <div class="f-sub"><span lang="tr">Senetle taksitle altın · İzmir</span><span lang="en">Gold on installments · Izmir</span></div>
+                    <p class="desc">
+                        <span lang="tr">İzmir merkezli kuyumculuk işletmemiz. Altın ve ziynet alışverişinde güvenilir, şeffaf ve esnek ödeme çözümleri sunuyoruz.</span>
+                        <span lang="en">Our Izmir-based jewelry business, offering trustworthy, transparent and flexible payment options for gold and jewelry.</span>
+                    </p>
+                    <ul class="checks">
+                        <li><i class="fas fa-check"></i><span lang="tr">Kredi kartsız, kefilsiz, senetle taksitli altın</span><span lang="en">Gold on installments, no credit card or guarantor needed</span></li>
+                        <li><i class="fas fa-check"></i><span lang="tr">Emekli ve kamu çalışanlarına 6 aya varan taksit</span><span lang="en">Up to 6 installments for retirees and public employees</span></li>
+                        <li><i class="fas fa-check"></i><span lang="tr">Altın, ziynet ve takı çeşitleri</span><span lang="en">Gold, coins and jewelry</span></li>
+                    </ul>
+                    <div class="f-actions">
+                        <a href="https://www.savkarkuyumculuk.com.tr" target="_blank" rel="noopener" class="btn btn-gold"><i class="fas fa-arrow-up-right-from-square"></i><span lang="tr">Web Sitesine Git</span><span lang="en">Visit Website</span></a>
+                    </div>
+                </article>
+
+                <article class="feature f-stream reveal">
+                    <div class="f-top">
+                        <div class="f-icon"><i class="fas fa-play"></i></div>
+                        <span class="badge"><span class="dot"></span><span lang="tr">Yayında</span><span lang="en">Live</span></span>
+                    </div>
+                    <h3>SmartXtream</h3>
+                    <div class="f-sub">IPTV Player · Android &amp; Samsung Smart TV</div>
+                    <p class="desc">
+                        <span lang="tr">Yeni nesil akıllı IPTV oynatıcı. Canlı TV, film ve dizileri telefonunda, tabletinde ve Samsung TV'nde kolayca izle.</span>
+                        <span lang="en">A next-generation IPTV player. Watch live TV, movies and series on your phone, tablet and Samsung TV with ease.</span>
+                    </p>
+                    <ul class="checks">
+                        <li><i class="fas fa-check"></i><span lang="tr">Xtream Codes ve M3U desteği, çoklu profil</span><span lang="en">Xtream Codes &amp; M3U support, multiple profiles</span></li>
+                        <li><i class="fas fa-check"></i><span lang="tr">Canlı TV, filmler, diziler ve favoriler</span><span lang="en">Live TV, movies, series and favorites</span></li>
+                        <li><i class="fas fa-check"></i><span lang="tr">Otomatik altyazı, çözünürlük ve ses seçimi</span><span lang="en">Auto subtitles, resolution and audio track selection</span></li>
+                    </ul>
+                    <div class="f-actions">
+                        <a href="https://play.google.com/store/apps/details?id=com.bybora.smartxtream" target="_blank" rel="noopener" class="btn btn-stream"><i class="fab fa-google-play"></i>Google Play</a>
+                        <a href="/smartxstream/" class="btn btn-ghost"><i class="fas fa-tv"></i>Samsung Smart TV</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="section container">
+            <div class="section-head reveal">
+                <div class="kicker"><span lang="tr">Diğer Projeler</span><span lang="en">Other Projects</span></div>
+                <h2><span lang="tr">Uygulamalar ve araçlar</span><span lang="en">Apps &amp; tools</span></h2>
+                <p><span lang="tr">Mobil uygulamalar, açık kaynak masaüstü araçları ve web projeleri.</span><span lang="en">Mobile apps, open-source desktop tools and web projects.</span></p>
+            </div>
+
+            <div class="filters reveal" id="filters">
+                <button class="chip active" data-filter="all"><span lang="tr">Tümü</span><span lang="en">All</span></button>
+                <button class="chip" data-filter="desktop"><span lang="tr">Masaüstü</span><span lang="en">Desktop</span></button>
+                <button class="chip" data-filter="mobile"><span lang="tr">Mobil</span><span lang="en">Mobile</span></button>
+                <button class="chip" data-filter="media"><span lang="tr">Video &amp; Medya</span><span lang="en">Video &amp; Media</span></button>
+                <button class="chip" data-filter="finance"><span lang="tr">Finans</span><span lang="en">Finance</span></button>
+                <button class="chip" data-filter="web">Web</button>
+            </div>
+
+            <div class="grid" id="grid">
+                <article class="card new reveal" data-cat="desktop">
+                    <div class="card-top">
+                        <div class="c-icon i-violet"><i class="fas fa-display"></i></div>
+                        <div><h3>NitPick</h3><div class="meta">Tauri · Rust · TypeScript</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Monitörünün ideal parlaklık, kontrast, gamma ve renk ayarlarını rehberli testlerle kolayca bulmanı sağlayan çapraz platform uygulama.</span>
+                        <span lang="en">Cross-platform app that helps anyone find their monitor's ideal brightness, contrast, gamma and color settings with guided tests.</span>
+                    </p>
+                    <div class="tags"><span class="tag">Windows</span><span class="tag">macOS</span><span class="tag">Linux</span><span class="tag">MIT</span></div>
+                    <div class="card-foot">
+                        <span class="status s-dev"><span lang="tr">Geliştiriliyor</span><span lang="en">In development</span></span>
+                        <span class="card-link"><span lang="tr">Yakında</span><span lang="en">Coming soon</span></span>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="desktop">
+                    <div class="card-top">
+                        <div class="c-icon i-blue"><i class="fab fa-windows"></i></div>
+                        <div><h3>WinCare</h3><div class="meta">PowerShell · v1.4.2</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Windows 11 için sade bakım aracı. Sistem sağlığını kontrol eder, yalnızca Windows'un kendi araçlarıyla (DISM, SFC, chkdsk) onarır.</span>
+                        <span lang="en">A clean maintenance tool for Windows 11. Checks system health and repairs it using only built-in Windows tools (DISM, SFC, chkdsk).</span>
+                    </p>
+                    <div class="tags"><span class="tag">Windows 11</span><span class="tag">Multilingual</span></div>
+                    <div class="card-foot">
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <a class="card-link" href="https://github.com/borasavkar/WinCare" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="desktop media">
+                    <div class="card-top">
+                        <div class="c-icon i-pink"><i class="fas fa-closed-captioning"></i></div>
+                        <div><h3>SubtitleForge</h3><div class="meta">Python · WhisperX · v1.2.0</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Yapay zekâ ile altyazı oluşturan, kelime düzeyinde hizalayan ve çeviren masaüstü uygulaması. Tamamen çevrimdışı çalışabilir.</span>
+                        <span lang="en">AI-powered desktop app that generates, aligns and translates subtitles at word level. Can run fully offline.</span>
+                    </p>
+                    <div class="tags"><span class="tag">AI</span><span class="tag">Offline</span><span class="tag">Translate</span></div>
+                    <div class="card-foot">
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <a class="card-link" href="https://github.com/borasavkar/SubtitleForge" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="desktop media">
+                    <div class="card-top">
+                        <div class="c-icon i-green"><i class="fas fa-film"></i></div>
+                        <div><h3>VidForge</h3><div class="meta">Python · NVENC / CUDA</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">NVIDIA ekran kartı hızlandırmalı video dönüştürücü (AV1, H.265, H.264, VP9). Dönüştürme kuyruğu, kırpma ve önizleme.</span>
+                        <span lang="en">NVIDIA GPU-accelerated video converter (AV1, H.265, H.264, VP9) with a conversion queue, trimming and preview.</span>
+                    </p>
+                    <div class="tags"><span class="tag">GPU</span><span class="tag">AV1</span><span class="tag">Portable</span></div>
+                    <div class="card-foot">
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <a class="card-link" href="https://github.com/borasavkar/vidforge" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="desktop media">
+                    <div class="card-top">
+                        <div class="c-icon i-orange"><i class="fas fa-image"></i></div>
+                        <div><h3>Ultimate Image Studio</h3><div class="meta">Python · ImageMagick · v1.8</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Görsel format dönüştürme, yeniden boyutlandırma ve web için optimizasyon. Toplu işlem ve isteğe bağlı yapay zekâ ile arka plan silme.</span>
+                        <span lang="en">Image format conversion, resizing and web optimization. Batch processing and optional AI background removal.</span>
+                    </p>
+                    <div class="tags"><span class="tag">WebP</span><span class="tag">AVIF</span><span class="tag">HEIC</span><span class="tag">Batch</span></div>
+                    <div class="card-foot">
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <a class="card-link" href="https://github.com/borasavkar/ultimate-image-studio" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="desktop media">
+                    <div class="card-top">
+                        <div class="c-icon i-cyan"><i class="fas fa-wave-square"></i></div>
+                        <div><h3>Whispera 2</h3><div class="meta">Python · PySide6 · Whisper</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">OpenAI Whisper tabanlı altyazı üretici. Tüm Whisper parametreleri arayüzde; toplu iş kuyruğu, canlı metin akışı ve Türkçe çeviri.</span>
+                        <span lang="en">Subtitle generator built on OpenAI Whisper. Every Whisper option in the UI, plus a batch queue, live transcript and optional translation.</span>
+                    </p>
+                    <div class="tags"><span class="tag">AI</span><span class="tag">Batch</span></div>
+                    <div class="card-foot">
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <a class="card-link" href="https://github.com/borasavkar/whispera" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="desktop">
+                    <div class="card-top">
+                        <div class="c-icon i-gold"><i class="fas fa-gauge-high"></i></div>
+                        <div><h3>DNS Speed Test</h3><div class="meta">Tauri v2 · Svelte</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Ham UDP sorgularıyla, işletim sistemi önbelleğini atlayarak DNS sunucularını milisaniye hassasiyetinde ölçen hızlı test aracı.</span>
+                        <span lang="en">Lightning-fast DNS benchmark using raw UDP queries that bypass OS caches for true millisecond accuracy.</span>
+                    </p>
+                    <div class="tags"><span class="tag">Network</span><span class="tag">Rust</span></div>
+                    <div class="card-foot">
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <a class="card-link" href="https://github.com/borasavkar/dns-speed-test" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="desktop">
+                    <div class="card-top">
+                        <div class="c-icon i-pink"><i class="fas fa-eye-dropper"></i></div>
+                        <div><h3>ColorPicker</h3><div class="meta">Python</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Ekrandan renk yakalama, elle giriş, HSV/Alfa kaydırıcıları ve canlı önizleme sunan çapraz platform renk seçici.</span>
+                        <span lang="en">Cross-platform color picker with screen capture, manual input, HSV/alpha sliders and live preview.</span>
+                    </p>
+                    <div class="tags"><span class="tag">Design</span><span class="tag">Cross-platform</span></div>
+                    <div class="card-foot">
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <a class="card-link" href="https://github.com/borasavkar/ColorPicker" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="mobile finance">
+                    <div class="card-top">
+                        <div class="c-icon i-gold"><i class="fas fa-chart-line"></i></div>
+                        <div><h3>FiboTrader</h3><div class="meta">Android</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Kripto ve Forex piyasaları için altın oran (0.618) odaklı Fibonacci hesaplama aracı.</span>
+                        <span lang="en">Golden-ratio (0.618) focused Fibonacci calculator for crypto and forex markets.</span>
+                    </p>
+                    <div class="tags"><span class="tag">Fibonacci</span><span class="tag">Trading</span></div>
+                    <div class="card-foot">
+                        <span class="status s-live"><span lang="tr">Yayında</span><span lang="en">Live</span></span>
+                        <a class="card-link" href="https://play.google.com/store/apps/details?id=com.bybora.fibotrader" target="_blank" rel="noopener"><i class="fab fa-google-play"></i>Google Play</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="mobile finance">
+                    <div class="card-top">
+                        <div class="c-icon i-red"><i class="fas fa-crosshairs"></i></div>
+                        <div><h3>Pivot Master</h3><div class="meta">Android</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Klasik, Camarilla ve Woodie yöntemleriyle pivot noktalarını, destek ve direnç seviyelerini anında hesaplayan teknik analiz aracı.</span>
+                        <span lang="en">Technical analysis tool that instantly calculates pivot points, support and resistance using Classic, Camarilla and Woodie methods.</span>
+                    </p>
+                    <div class="tags"><span class="tag">Pivot Points</span><span class="tag">Trading</span></div>
+                    <div class="card-foot">
+                        <span class="status s-live"><span lang="tr">Yayında</span><span lang="en">Live</span></span>
+                        <a class="card-link" href="https://play.google.com/store/apps/details?id=com.bybora.pivotmasterbybora" target="_blank" rel="noopener"><i class="fab fa-google-play"></i>Google Play</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="finance">
+                    <div class="card-top">
+                        <div class="c-icon i-orange"><i class="fab fa-bitcoin"></i></div>
+                        <div><h3>Crypto Analyst</h3><div class="meta">Python · Streamlit</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Kripto paralar için teknik analiz asistanı. Risk/ödül oranına göre işlem önerileri ve çoklu zaman dilimi taraması.</span>
+                        <span lang="en">Technical analysis assistant for crypto. Risk/reward based trade suggestions and multi-timeframe scanning.</span>
+                    </p>
+                    <div class="tags"><span class="tag">Crypto</span><span class="tag">Signals</span></div>
+                    <div class="card-foot">
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <a class="card-link" href="https://github.com/borasavkar/Crypto_Analyst2026" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="web">
+                    <div class="card-top">
+                        <div class="c-icon i-red"><i class="fas fa-microchip"></i></div>
+                        <div><h3><span lang="tr">MSI X670E BIOS Rehberi</span><span lang="en">MSI X670E BIOS Guide</span></h3><div class="meta">Web</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">MSI X670E + Ryzen için aranabilir, mobil uyumlu BIOS ayar rehberi: menü yolu, önerilen değer ve açıklama tek ekranda.</span>
+                        <span lang="en">Searchable, mobile-friendly BIOS settings guide for MSI X670E + Ryzen: menu path, recommended value and explanation on one screen.</span>
+                    </p>
+                    <div class="tags"><span class="tag">PC</span><span class="tag">Guide</span></div>
+                    <div class="card-foot">
+                        <span class="status s-live"><span lang="tr">Yayında</span><span lang="en">Live</span></span>
+                        <a class="card-link" href="/msi-x670e-bios-settings/"><i class="fas fa-arrow-up-right-from-square"></i><span lang="tr">Aç</span><span lang="en">Open</span></a>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-cat="media">
+                    <div class="card-top">
+                        <div class="c-icon i-violet"><i class="fas fa-folder-tree"></i></div>
+                        <div><h3>mpv File Organizer</h3><div class="meta">Lua</div></div>
+                    </div>
+                    <p>
+                        <span lang="tr">Medya dosyalarını albüm bilgisine göre (iTunes tarzı) klasörlere düzenleyen mpv eklentisi.</span>
+                        <span lang="en">An mpv script that organizes media files into folders by album metadata (iTunes style).</span>
+                    </p>
+                    <div class="tags"><span class="tag">mpv</span><span class="tag">Script</span></div>
+                    <div class="card-foot">
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <a class="card-link" href="https://github.com/borasavkar/mpv-file-organizer" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                    </div>
+                </article>
+            </div>
+
+            <details class="archive reveal">
+                <summary><span><span lang="tr">Arşiv: eski ve deneysel projeler</span><span lang="en">Archive: older &amp; experimental projects</span></span><i class="fas fa-chevron-down"></i></summary>
+                <div class="archive-list">
+                    <a href="https://github.com/borasavkar/BoraIptvPlayer" target="_blank" rel="noopener"><b>BoraIptvPlayer</b><span lang="tr">SmartXtream'in ilk Android prototipi</span><span lang="en">Early Android prototype of SmartXtream</span></a>
+                    <a href="https://github.com/borasavkar/PersonalTrader" target="_blank" rel="noopener"><b>PersonalTrader</b><span lang="tr">Robotik hisse senedi trader denemesi</span><span lang="en">Robotic stock trader experiment</span></a>
+                    <a href="https://github.com/borasavkar/Bitcoin-Technical-Anaylst" target="_blank" rel="noopener"><b>Bitcoin Technical Analyst</b><span lang="tr">BTC-USD teknik analiz</span><span lang="en">BTC-USD technical analysis</span></a>
+                    <a href="https://github.com/borasavkar/viop" target="_blank" rel="noopener"><b>VİOP</b><span lang="tr">VİOP al-sat sinyalleri</span><span lang="en">Turkish derivatives (VİOP) signals</span></a>
+                    <a href="https://github.com/borasavkar/bist" target="_blank" rel="noopener"><b>BIST</b><span lang="tr">Borsa İstanbul analiz araçları</span><span lang="en">Borsa Istanbul analysis tools</span></a>
+                    <a href="https://github.com/borasavkar/EmekliFinans" target="_blank" rel="noopener"><b>EmekliFinans</b><span lang="tr">Django tabanlı finans web uygulaması</span><span lang="en">Django-based finance web app</span></a>
+                    <a href="https://github.com/borasavkar/hesap-makinesi" target="_blank" rel="noopener"><b>Hesap Makinesi</b><span lang="tr">Kotlin ile Android hesap makinesi</span><span lang="en">Android calculator in Kotlin</span></a>
+                    <a href="https://github.com/borasavkar/TCvalidate" target="_blank" rel="noopener"><b>TCvalidate</b><span lang="tr">TC kimlik no doğrulama (JavaScript)</span><span lang="en">Turkish ID number validation (JavaScript)</span></a>
+                </div>
+            </details>
+        </section>
+
+        <!-- ABOUT + CONTACT -->
+        <section id="about" class="section container">
+            <div class="section-head reveal">
+                <div class="kicker"><span lang="tr">Hakkımda</span><span lang="en">About</span></div>
+                <h2><span lang="tr">Ticaret ve yazılım bir arada</span><span lang="en">Where business meets software</span></h2>
+            </div>
+            <div class="about">
+                <div class="panel reveal">
+                    <p><span lang="tr">İzmir'de yaşayan bir yazılım geliştirici ve işletme sahibiyim. Şavkar Kuyumculuk'taki ticaret tecrübemi yazılım tutkumla birleştiriyorum.</span><span lang="en">I'm a software developer and business owner based in Izmir, Türkiye, combining hands-on retail experience at Şavkar Kuyumculuk with a passion for building software.</span></p>
+                    <p><span lang="tr">Android ve Smart TV uygulamaları, finansal teknolojiler ve herkesin rahatça kullanabileceği sade, açık kaynak masaüstü araçları üzerine çalışıyorum.</span><span lang="en">I build Android and Smart TV apps, fintech tools and simple, open-source desktop utilities that anyone can use.</span></p>
+                    <div class="skills">
+                        <span class="tag">Kotlin</span><span class="tag">TypeScript</span><span class="tag">Python</span><span class="tag">Rust</span><span class="tag">Tauri</span><span class="tag">Tizen</span><span class="tag">Django</span><span class="tag">PowerShell</span>
+                    </div>
+                </div>
+                <div class="panel reveal" id="contact">
+                    <div class="contact-list">
+                        <a href="mailto:bybora.apps@gmail.com"><i class="fas fa-envelope"></i><div>bybora.apps@gmail.com<small><span lang="tr">Uygulamalar ve iş birlikleri</span><span lang="en">Apps &amp; collaborations</span></small></div></a>
+                        <a href="https://github.com/borasavkar" target="_blank" rel="noopener"><i class="fab fa-github"></i><div>github.com/borasavkar<small><span lang="tr">Açık kaynak projeler</span><span lang="en">Open-source projects</span></small></div></a>
+                        <a href="https://www.savkarkuyumculuk.com.tr" target="_blank" rel="noopener"><i class="fas fa-gem"></i><div>savkarkuyumculuk.com.tr<small>Şavkar Kuyumculuk</small></div></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 ByBora Tech. Tüm Hakları Saklıdır.</p>
-        <p>
-            <a href="/privacy.html">Gizlilik Politikası</a> | 
-            <a href="/app-ads.txt">Reklam Doğrulama (app-ads.txt)</a>
-        </p>
+        <div class="container foot">
+            <div>&copy; <span id="year">2026</span> ByBora Tech · Bora Şavkar</div>
+            <div class="foot-links">
+                <a href="/privacy.html"><span lang="tr">Gizlilik Politikası</span><span lang="en">Privacy Policy</span></a>
+                <a href="/app-ads.txt">app-ads.txt</a>
+            </div>
+        </div>
     </footer>
 
     <script>
-        function toggleMenu() {
-            var menu = document.getElementById("navLinks");
-            if (menu.classList.contains("active")) {
-                menu.classList.remove("active");
-            } else {
-                menu.classList.add("active");
+        (function () {
+            var root = document.documentElement;
+            root.classList.add('js');
+
+            // Language: the visitor's own TR/EN choice wins; otherwise Turkish for visitors
+            // in Türkiye (device time zone) or with a Turkish browser, English for everyone else.
+            function applyLang(lang) {
+                root.setAttribute('data-lang', lang);
+                root.setAttribute('lang', lang);
             }
-        }
+            function detectLang() {
+                var tz = '';
+                try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+                if (tz === 'Europe/Istanbul' || tz === 'Asia/Istanbul') return 'tr';
+                var langs = navigator.languages || [navigator.language || ''];
+                return String(langs[0] || '').toLowerCase().indexOf('tr') === 0 ? 'tr' : 'en';
+            }
+            var saved = null;
+            try { saved = localStorage.getItem('lang'); } catch (e) {}
+            applyLang(saved === 'tr' || saved === 'en' ? saved : detectLang());
+            document.querySelectorAll('.lang-toggle button').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    applyLang(b.dataset.set);
+                    try { localStorage.setItem('lang', b.dataset.set); } catch (e) {}
+                });
+            });
+
+            // Header background on scroll
+            var header = document.getElementById('header');
+            function onScroll() { header.classList.toggle('scrolled', window.scrollY > 10); }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            // Mobile menu
+            var menu = document.getElementById('navLinks');
+            var burger = document.getElementById('hamburger');
+            function setMenu(open) {
+                menu.classList.toggle('open', open);
+                burger.setAttribute('aria-expanded', open);
+                burger.innerHTML = open ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+            }
+            burger.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+            menu.querySelectorAll('a').forEach(function (a) {
+                a.addEventListener('click', function () { setMenu(false); });
+            });
+
+            // Project filters
+            var chips = document.querySelectorAll('#filters .chip');
+            var cards = document.querySelectorAll('#grid .card');
+            chips.forEach(function (chip) {
+                chip.addEventListener('click', function () {
+                    chips.forEach(function (c) { c.classList.remove('active'); });
+                    chip.classList.add('active');
+                    var f = chip.dataset.filter;
+                    cards.forEach(function (card) {
+                        var show = f === 'all' || card.dataset.cat.split(' ').indexOf(f) !== -1;
+                        card.classList.toggle('hidden', !show);
+                        if (show) card.classList.add('in');
+                    });
+                });
+            });
+
+            // Reveal on scroll
+            var els = document.querySelectorAll('.reveal');
+            if ('IntersectionObserver' in window) {
+                var io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+                els.forEach(function (el) { io.observe(el); });
+            } else {
+                els.forEach(function (el) { el.classList.add('in'); });
+            }
+
+            document.getElementById('year').textContent = new Date().getFullYear();
+        })();
     </script>
 </body>
 </html>
