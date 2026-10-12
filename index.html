@@ -225,6 +225,7 @@
         .s-dev { color: #ffb86b; background: rgba(255, 159, 67, 0.12); }
         .card-link { color: var(--muted); font-size: 0.86rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
         a.card-link:hover { color: var(--text); }
+        .card-links { display: inline-flex; gap: 14px; }
         .card.new { border-color: rgba(139, 124, 255, 0.45); background: linear-gradient(160deg, rgba(139, 124, 255, 0.13), var(--card) 60%); }
 
         .i-gold { color: var(--gold); } .i-green { color: var(--green); } .i-blue { color: #6ab7ff; }
@@ -434,10 +435,13 @@
                         <span lang="tr">Monitörünün ideal parlaklık, kontrast, gamma ve renk ayarlarını rehberli testlerle kolayca bulmanı sağlayan çapraz platform uygulama.</span>
                         <span lang="en">Cross-platform app that helps anyone find their monitor's ideal brightness, contrast, gamma and color settings with guided tests.</span>
                     </p>
-                    <div class="tags"><span class="tag">Windows</span><span class="tag">macOS</span><span class="tag">Linux</span><span class="tag">MIT</span></div>
+                    <div class="tags"><span class="tag">Windows</span><span class="tag">macOS</span><span class="tag">Linux</span><span class="tag">Web</span><span class="tag">TR / EN</span></div>
                     <div class="card-foot">
-                        <span class="status s-dev"><span lang="tr">Geliştiriliyor</span><span lang="en">In development</span></span>
-                        <span class="card-link"><span lang="tr">Yakında</span><span lang="en">Coming soon</span></span>
+                        <span class="status s-oss"><span lang="tr">Açık kaynak</span><span lang="en">Open source</span></span>
+                        <span class="card-links">
+                            <a class="card-link" href="/nitpick/"><i class="fas fa-globe"></i><span lang="tr">Dene</span><span lang="en">Try it</span></a>
+                            <a class="card-link" href="https://github.com/borasavkar/nitpick" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                        </span>
                     </div>
                 </article>
 
