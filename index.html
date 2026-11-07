@@ -189,6 +189,9 @@
         .f-gold .checks i { color: var(--gold); }
         .f-stream .checks i { color: var(--green); }
         .f-actions { margin-top: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+        .f-legal { margin-top: 14px; font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+        .f-legal a { color: inherit; opacity: 0.75; text-decoration: underline; text-underline-offset: 3px; }
+        .f-legal a:hover { opacity: 1; }
         .btn-stream { background: linear-gradient(135deg, var(--green), #00c2a8); color: #03140b; box-shadow: 0 10px 30px -10px rgba(0, 230, 118, 0.6); }
 
         /* --- Projects grid --- */
@@ -403,6 +406,10 @@
                     <div class="f-actions">
                         <a href="https://play.google.com/store/apps/details?id=com.bybora.smartxtream" target="_blank" rel="noopener" class="btn btn-stream"><i class="fab fa-google-play"></i>Google Play</a>
                         <a href="/smartxstream/" class="btn btn-ghost"><i class="fas fa-tv"></i>Samsung Smart TV</a>
+                    </div>
+                    <div class="f-legal">
+                        <a href="/smartxtream/privacy.html"><span lang="tr">Gizlilik Politikası</span><span lang="en">Privacy Policy</span></a>
+                        <a href="/smartxtream/terms.html"><span lang="tr">Hizmet Şartları</span><span lang="en">Terms of Service</span></a>
                     </div>
                 </article>
             </div>
